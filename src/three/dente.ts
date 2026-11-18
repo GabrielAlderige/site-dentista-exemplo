@@ -288,9 +288,10 @@ export function iniciarDente(canvas: HTMLCanvasElement, opcoes: { reduzido: bool
     // posição: abertura à direita (computador) ou em cima (celular); trilha idem, um pouco menor no celular
     const e = params.entrada
     const t = params.trilha
-    const baseEsc = estreito ? Math.min(0.46, visW * 0.21) * (1 - 0.12 * t) : Math.min(0.76, visH * 0.185)
+    // no celular, dentro da trilha, o dente fica menor e mais alto para o cartão de texto caber inteiro
+    const baseEsc = estreito ? Math.min(0.46, visW * 0.21) * (1 - 0.46 * t) : Math.min(0.76, visH * 0.185)
     const x = estreito ? 0 : visW * (0.235 - 0.01 * t)
-    const y = estreito ? visH * (0.2 + 0.06 * t) : 0
+    const y = estreito ? visH * (0.2 + 0.15 * t) : 0
     pivo.position.set(x, y + (1 - e) * -0.8, 0)
     pivo.scale.setScalar(baseEsc * params.escala * (0.85 + 0.15 * e))
     pivo.rotation.set(params.inclina + ponteiro.ay * 0.12, giro + giroRolagemSuave + ponteiro.ax * 0.3 + (1 - e) * -1.4, -0.08)
