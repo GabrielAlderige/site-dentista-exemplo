@@ -31,8 +31,9 @@ const ESTADOS: Record<Estado, Partial<Params>> = {
   prevencao: { explodir: 0, raiz: 1, cor: 1, placa: 0, escala: 0.98, inclina: 0.16, scan: 0 },
 }
 
-const COR_A3 = new THREE.Color('#d6b77f')
-const COR_B1 = new THREE.Color('#fbfaf6')
+// multiplicam a cor por vértice da coroa: A3 amarela tudo, B1 deixa a cor natural do esmalte
+const COR_A3 = new THREE.Color('#e3c089')
+const COR_B1 = new THREE.Color('#ffffff')
 
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x))
 const smooth = (e0: number, e1: number, x: number) => {
@@ -40,56 +41,102 @@ const smooth = (e0: number, e1: number, x: number) => {
   return t * t * (3 - 2 * t)
 }
 
+/**
+ * Coroa de primeiro molar inferior: 5 cúspides (3 vestibulares, 2 linguais, as linguais mais altas),
+ * sulco central ondulado, sulcos vestibular e lingual, mesa oclusal mais estreita que o bojo
+ * e colo estreitando até a junção com a raiz. A cor vem por vértice: marfim no colo, branco no meio,
+ * translúcido azulado nas pontas das cúspides e sombra dentro dos sulcos.
+ */
+const CUSPIDES: [number, number, number][] = [
+  [-0.56, 0.44, 0.15], // mesiovestibular
+  [0.0, 0.5, 0.14], // distovestibular
+  [0.56, 0.4, 0.105], // distal
+  [-0.44, -0.44, 0.185], // mesiolingual
+  [0.44, -0.44, 0.165], // distolingual
+]
+
 function geometriaCoroa(seg: number) {
-  let g: THREE.BufferGeometry = new THREE.SphereGeometry(1, seg, Math.round(seg * 0.75))
+  let g: THREE.BufferGeometry = new THREE.SphereGeometry(1, seg, Math.round(seg * 0.8))
   g.deleteAttribute('uv')
   g.deleteAttribute('normal')
   g = mergeVertices(g)
   const p = g.attributes.position as THREE.BufferAttribute
-  const cuspides: [number, number, number][] = [
-    [0.44, 0.38, 0.19], [-0.44, 0.38, 0.17], [0.46, -0.36, 0.18], [-0.44, -0.36, 0.16], [0.05, 0.5, 0.1],
-  ]
+  const cores = new Float32Array(p.count * 3)
+  const cColo = new THREE.Color('#ecdcbc'), cMeio = new THREE.Color('#fbf9f4'), cPonta = new THREE.Color('#e9eff7'), cSulco = new THREE.Color('#c4ad85')
+  const c = new THREE.Color()
+
   for (let i = 0; i < p.count; i++) {
     const ox = p.getX(i), oy = p.getY(i), oz = p.getZ(i)
-    let x = Math.sign(ox) * Math.pow(Math.abs(ox), 0.6)
-    let z = Math.sign(oz) * Math.pow(Math.abs(oz), 0.6)
-    let y = Math.sign(oy) * Math.pow(Math.abs(oy), 0.85)
+    let x = Math.sign(ox) * Math.pow(Math.abs(ox), 0.55)
+    let z = Math.sign(oz) * Math.pow(Math.abs(oz), 0.55)
+    let y = Math.sign(oy) * Math.pow(Math.abs(oy), 0.8)
 
-    const topo = smooth(0.35, 0.97, oy)
+    const topo = smooth(0.22, 0.97, oy)
     let h = 0
-    for (const [cx, cz, a] of cuspides) h += Math.exp(-((x - cx) ** 2 + (z - cz) ** 2) / 0.09) * a
-    const sulco = Math.exp(-(x * x) / 0.006) * 0.07 + Math.exp(-(z * z) / 0.01) * 0.05
-    y += topo * (h - sulco - 0.12)
+    for (const [cx, cz, a] of CUSPIDES) h += Math.exp(-((x - cx) ** 2 + (z - cz) ** 2) / 0.07) * a * 1.3
+    const zc = 0.06 * Math.sin(x * 3.2)
+    const central = Math.exp(-((z - zc) ** 2) / 0.0035) * 0.085 * (1 - smooth(0.7, 1, Math.abs(x)))
+    const vestibular = (Math.exp(-((x + 0.28) ** 2) / 0.0025) * 0.05 + Math.exp(-((x - 0.3) ** 2) / 0.0025) * 0.032) * smooth(0.05, 0.6, z)
+    const lingual = Math.exp(-(x * x) / 0.0025) * 0.05 * smooth(-0.05, -0.6, z)
+    const fossa = Math.exp(-(x * x + z * z) / 0.01) * 0.03
+    const sulco = central + vestibular + lingual + fossa
+    const ruido = Math.sin(9 * ox + 2 * oz) * Math.sin(7 * oz - 3 * oy) * Math.sin(11 * oy + ox) * 0.007
 
-    const bojo = 1 + 0.035 * Math.exp(-((oy - 0.25) ** 2) / 0.05)
-    const colo = 1 - 0.26 * smooth(-0.05, -1, oy)
-    x *= bojo * colo * 0.97
-    z *= bojo * colo * 0.86
-    p.setXYZ(i, x, y * 0.78, z)
+    y += topo * (h - sulco - 0.13) + ruido
+
+    const mesa = 1 - 0.1 * smooth(0.3, 1, oy)
+    const bojo = 1 + 0.03 * Math.exp(-((oy - 0.1) ** 2) / 0.06)
+    const colo = 1 - 0.5 * smooth(0.05, -0.9, oy)
+    const k = mesa * bojo * colo * (1 + ruido)
+    x *= k * 1.06
+    z *= k * 0.9
+    p.setXYZ(i, x, y * 0.8, z)
+
+    c.copy(cColo).lerp(cMeio, smooth(-0.85, 0.5, oy))
+    c.lerp(cPonta, clamp01(h * 4.5) * topo * 0.85)
+    c.lerp(cSulco, clamp01(sulco * 10) * topo * 0.9)
+    cores.set([c.r, c.g, c.b], i * 3)
   }
+  g.setAttribute('color', new THREE.BufferAttribute(cores, 3))
   g.computeVertexNormals()
   return g
 }
 
+/**
+ * Raiz mesial ou distal: largas no sentido vestíbulo-lingual e finas no mésio-distal,
+ * unidas num tronco perto do colo e separando depois da furca; as duas pontas curvam para distal.
+ */
 function geometriaRaiz(lado: number, comprimento: number, seg: number) {
   const perfil: THREE.Vector2[] = []
-  const n = 48
+  const n = 56
   for (let i = 0; i <= n; i++) {
     const t = i / n
-    const r = 0.45 * Math.pow(1 - t, 0.5) * (1 - 0.3 * t)
+    const r = 0.5 * Math.pow(1 - t, 0.55) * (1 - 0.2 * t)
     perfil.push(new THREE.Vector2(Math.max(r, 0.0001), -t * comprimento))
   }
-  const g = new THREE.LatheGeometry(perfil, seg)
+  let g: THREE.BufferGeometry = new THREE.LatheGeometry(perfil, seg)
+  g.deleteAttribute('uv')
+  g.deleteAttribute('normal')
+  g = mergeVertices(g)
   const p = g.attributes.position as THREE.BufferAttribute
+  const cores = new Float32Array(p.count * 3)
+  const cTopo = new THREE.Color('#f0e5cf'), cPonta = new THREE.Color('#dcc79f')
+  const c = new THREE.Color()
   for (let i = 0; i < p.count; i++) {
     let x = p.getX(i), z = p.getZ(i)
     const y = p.getY(i)
     const t = -y / comprimento
-    z *= 0.7
-    x += lado * (0.42 * t - 0.22 * t * t)
+    x *= 0.74
+    z *= 1.22 * (1 - 0.3 * t)
+    // sulco longitudinal raso no meio da face da raiz
+    x *= 1 - 0.12 * Math.exp(-(z * z) / 0.02) * smooth(0.1, 0.4, t)
+    x += lado * (0.17 + 0.27 * smooth(0.15, 0.85, t)) + 0.16 * t * t
     p.setXYZ(i, x, y, z)
+    c.copy(cTopo).lerp(cPonta, Math.pow(t, 1.3))
+    cores.set([c.r, c.g, c.b], i * 3)
   }
-  g.translate(lado * 0.33, -0.3, 0)
+  g.setAttribute('color', new THREE.BufferAttribute(cores, 3))
+  g.translate(0, -0.22, 0)
   g.computeVertexNormals()
   return g
 }
@@ -135,7 +182,7 @@ export function iniciarDente(canvas: HTMLCanvasElement, opcoes: { reduzido: bool
   const cena = new THREE.Scene()
   const pmrem = new THREE.PMREMGenerator(renderer)
   cena.environment = pmrem.fromScene(new RoomEnvironment(), 0.03).texture
-  cena.environmentIntensity = 0.85
+  cena.environmentIntensity = 0.75
 
   const camera = new THREE.PerspectiveCamera(30, 1, 0.1, 50)
   camera.position.set(0, 0.2, 7.5)
@@ -146,14 +193,16 @@ export function iniciarDente(canvas: HTMLCanvasElement, opcoes: { reduzido: bool
   azul.position.set(4, 0.5, -3)
   const azulBaixo = new THREE.DirectionalLight(0x3b82f6, 0.9)
   azulBaixo.position.set(-2, -4, 2)
-  cena.add(chave, azul, azulBaixo, new THREE.AmbientLight(0xe8f0ff, 0.3))
+  const preenche = new THREE.DirectionalLight(0xfff6ea, 0.7)
+  preenche.position.set(1, -3, 4)
+  cena.add(chave, azul, azulBaixo, preenche, new THREE.AmbientLight(0xe8f0ff, 0.3))
 
   const seg = movel ? 110 : 170
   const esmalte = new THREE.MeshPhysicalMaterial({
-    color: COR_B1.clone(), roughness: 0.16, clearcoat: 1, clearcoatRoughness: 0.05,
-    sheen: 0.6, sheenRoughness: 0.35, sheenColor: new THREE.Color('#dbe7ff'), specularIntensity: 0.9,
+    color: COR_B1.clone(), vertexColors: true, roughness: 0.13, ior: 1.62, specularIntensity: 1,
+    clearcoat: 1, clearcoatRoughness: 0.09, sheen: 0.35, sheenRoughness: 0.3, sheenColor: new THREE.Color('#dfe9ff'),
   })
-  const cemento = new THREE.MeshPhysicalMaterial({ color: '#efe4cc', roughness: 0.45, clearcoat: 0.3, transparent: true, side: THREE.DoubleSide })
+  const cemento = new THREE.MeshPhysicalMaterial({ color: '#ffffff', vertexColors: true, roughness: 0.5, clearcoat: 0.15, clearcoatRoughness: 0.4, transparent: true })
   const titanio = new THREE.MeshPhysicalMaterial({ color: '#c3cad3', metalness: 1, roughness: 0.26, transparent: true })
   const ouro = new THREE.MeshPhysicalMaterial({ color: '#d6b878', metalness: 1, roughness: 0.22, transparent: true })
   const placaMat = new THREE.MeshPhysicalMaterial({
@@ -167,7 +216,7 @@ export function iniciarDente(canvas: HTMLCanvasElement, opcoes: { reduzido: bool
   const geoCoroa = geometriaCoroa(seg)
   const coroa = new THREE.Mesh(geoCoroa, esmalte)
   const raizes = new THREE.Group()
-  raizes.add(new THREE.Mesh(geometriaRaiz(-1, 2.15, movel ? 40 : 64), cemento), new THREE.Mesh(geometriaRaiz(1, 1.95, movel ? 40 : 64), cemento))
+  raizes.add(new THREE.Mesh(geometriaRaiz(-1, 2.2, movel ? 48 : 72), cemento), new THREE.Mesh(geometriaRaiz(1, 2.0, movel ? 48 : 72), cemento))
   const pilar = new THREE.Mesh(new THREE.CylinderGeometry(0.19, 0.25, 0.5, 6, 1), ouro)
   const parafuso = new THREE.Mesh(geometriaParafuso(movel ? 72 : 110), titanio)
 
