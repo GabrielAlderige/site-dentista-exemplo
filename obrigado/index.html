@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Pedido recebido | {{nome}}</title>
+    <meta name="description" content="Seu pedido de horário foi recebido pela {{nome}}." />
+    <meta name="robots" content="noindex, follow" />
+  </head>
+  <body data-pagina="obrigado">
+    <!--@include header-->
+    <main id="conteudo" class="simples">
+      <svg class="obrigado__glifo" viewBox="0 0 32 32" aria-hidden="true" width="56" height="56"><path d="M9 4c-3 0-5 2.5-5 6 0 3 1 5 2 7.5.8 2 1 4 1.5 7 .4 2.5 1.3 4.5 2.8 4.5 1.6 0 2.1-2 2.6-4.5.4-2 .9-3.5 3.1-3.5s2.7 1.5 3.1 3.5c.5 2.5 1 4.5 2.6 4.5 1.5 0 2.4-2 2.8-4.5.5-3 .7-5 1.5-7C27 15 28 13 28 10c0-3.5-2-6-5-6-2.5 0-4 1.3-7 1.3S11.5 4 9 4z" fill="#fff" stroke="#18222E" stroke-width="1.4"/></svg>
+      <h1 data-obrigado-titulo style="margin-top:1.5rem">Pedido recebido</h1>
+      <p>A recepção responde pelo WhatsApp no horário de atendimento ({{horarioTexto}}) com as opções de dia e hora.</p>
+      <p>Se preferir adiantar, mande uma mensagem agora:</p>
+      <a class="botao botao--whats" href="{{waLink}}" target="_blank" rel="noopener" data-whats-obrigado>Chamar no WhatsApp</a>
+      <p style="margin-top:2.5rem"><a class="link" href="{{base}}">Voltar para o início</a></p>
+      <p class="selo" data-demo style="margin-top:3rem">Demonstração: o pedido foi para o <a href="{{base}}leads/">painel de pedidos</a> deste navegador.</p>
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/obrigado.ts"></script>
+  </body>
+</html>

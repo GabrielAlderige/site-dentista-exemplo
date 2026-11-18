@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Clareamento dental em {{cidade}}: consultório ou caseiro | {{nome}}</title>
+    <meta name="description" content="Clareamento dental na {{nome}}, em {{cidade}} – {{uf}}. Diferença entre clareamento de consultório e caseiro, sensibilidade, duração e quem pode fazer." />
+  </head>
+  <body data-pagina="clareamento" data-tratamento="Clareamento dental">
+    <!--@include header-->
+    <div class="palco" aria-hidden="true">
+      <canvas class="palco__canvas" data-dente></canvas>
+    </div>
+
+    <main id="conteudo">
+      <section class="abertura interna__abertura" data-estado="clareamento" aria-labelledby="titulo">
+        <div class="abertura__in">
+          <nav class="migalha" aria-label="Você está em"><ol><li><a href="{{base}}">Início</a></li><li aria-current="page">Clareamento dental</li></ol></nav>
+          <h1 id="titulo" class="abertura__titulo">Clareamento dental em {{cidade}}</h1>
+          <p class="abertura__lead">A cor é medida na escala do consultório antes de começar, e o quanto clarear é combinado com você. Veja como funciona cada tipo.</p>
+          <div class="escala" data-escala style="max-width: 26rem">
+            <label for="escala-cor">Arraste pela escala de cor</label>
+            <input id="escala-cor" type="range" min="0" max="3" step="1" value="0" aria-valuetext="A3" />
+            <ol class="escala__marcas" aria-hidden="true">
+              <li style="--c:#E3CFA6">A3</li><li style="--c:#EAD9B8">A2</li><li style="--c:#F0E5CD">A1</li><li style="--c:#F6F1E4">B1</li>
+            </ol>
+          </div>
+          <div class="abertura__acoes">
+            <a class="botao botao--escuro" href="#agendar">Agendar avaliação para clareamento</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="texto" data-estado="fora">
+        <div class="texto__in">
+          <h2>Consultório ou caseiro</h2>
+          <p><strong>No consultório</strong>, o gel é aplicado pelo dentista com a gengiva protegida, em sessões de cerca de uma hora. <strong>O caseiro</strong> usa moldeiras feitas sob medida, com gel em concentração menor, por algumas horas por dia durante semanas. Muitas vezes os dois são combinados.</p>
+
+          <h2>Antes de clarear</h2>
+          <p>Cáries, restaurações com infiltração e gengiva inflamada são tratadas primeiro. Restaurações e coroas não mudam de cor com o gel, então às vezes precisam ser trocadas depois para acompanhar o novo tom.</p>
+
+          <h2>Sensibilidade</h2>
+          <p>É comum sentir os dentes mais sensíveis durante o tratamento. O dentista ajusta o tempo de uso e pode indicar produtos para aliviar.</p>
+          <p class="nota">O resultado depende da cor de origem e da estrutura de cada dente. A escala acima é uma ilustração; a medição real é feita na consulta.</p>
+        </div>
+      </section>
+
+      <section class="duvidas" data-estado="fora" aria-labelledby="duvidas-titulo">
+        <div class="duvidas__in">
+          <h2 id="duvidas-titulo">Dúvidas sobre clareamento</h2>
+          <div class="faq">
+            <details class="faq-item">
+              <summary>Clareamento estraga o esmalte?</summary>
+              <div class="faq-a"><p>Feito com indicação e acompanhamento do dentista, nas concentrações certas, o clareamento é considerado seguro para o esmalte.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Quanto tempo dura o resultado?</summary>
+              <div class="faq-a"><p>Varia com os hábitos. Café, vinho, chá e cigarro escurecem os dentes com o tempo; retoques com o gel caseiro ajudam a manter.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Gestantes podem clarear?</summary>
+              <div class="faq-a"><p>A recomendação é esperar o fim da gestação e da amamentação para fazer o clareamento.</p></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!--@include agendar-->
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

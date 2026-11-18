@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Alinhadores invisíveis em {{cidade}}: como funcionam | {{nome}}</title>
+    <meta name="description" content="Alinhadores transparentes na {{nome}}, em {{cidade}} – {{uf}}. Escaneamento digital, simulação do tratamento, troca de placas e quem pode usar." />
+  </head>
+  <body data-pagina="alinhador" data-tratamento="Alinhadores invisíveis">
+    <!--@include header-->
+    <div class="palco" aria-hidden="true">
+      <canvas class="palco__canvas" data-dente></canvas>
+    </div>
+
+    <main id="conteudo">
+      <section class="abertura interna__abertura" data-estado="alinhador" aria-labelledby="titulo">
+        <div class="abertura__in">
+          <nav class="migalha" aria-label="Você está em"><ol><li><a href="{{base}}">Início</a></li><li aria-current="page">Alinhadores invisíveis</li></ol></nav>
+          <h1 id="titulo" class="abertura__titulo">Alinhadores invisíveis em {{cidade}}</h1>
+          <p class="abertura__lead">Placas transparentes, removíveis, trocadas a cada uma ou duas semanas. Antes da primeira placa você vê a simulação do caminho dos dentes.</p>
+          <div class="abertura__acoes">
+            <a class="botao botao--escuro" href="#agendar">Agendar escaneamento</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="texto" data-estado="fora">
+        <div class="texto__in">
+          <h2>Como funciona</h2>
+          <ol class="etapas">
+            <li><strong>Escaneamento.</strong> Um scanner intraoral cria o modelo 3D da sua boca em poucos minutos, sem massa de moldagem.</li>
+            <li><strong>Simulação.</strong> O dentista planeja o movimento dos dentes e mostra a previsão do resultado, placa por placa.</li>
+            <li><strong>Placas.</strong> Você recebe as placas e usa cada uma por cerca de 22 horas por dia, tirando para comer e escovar.</li>
+            <li><strong>Acompanhamento.</strong> Consultas a cada poucas semanas conferem se os dentes seguem o plano.</li>
+            <li><strong>Contenção.</strong> No fim, uma contenção mantém os dentes na nova posição.</li>
+          </ol>
+
+          <h2>Quem pode usar</h2>
+          <p>Adolescentes e adultos com dentes tortos, espaçados ou mordida desalinhada. Casos mais complexos podem precisar de aparelho fixo ou de uma combinação dos dois; o escaneamento mostra isso.</p>
+          <p class="nota">O tempo de tratamento depende do caso e da disciplina no uso das placas. A simulação é uma previsão, não uma garantia de resultado.</p>
+        </div>
+      </section>
+
+      <section class="duvidas" data-estado="fora" aria-labelledby="duvidas-titulo">
+        <div class="duvidas__in">
+          <h2 id="duvidas-titulo">Dúvidas sobre alinhadores</h2>
+          <div class="faq">
+            <details class="faq-item">
+              <summary>Alinhador dói?</summary>
+              <div class="faq-a"><p>Nos primeiros dias de cada placa nova é comum sentir pressão nos dentes. É sinal de que eles estão se movendo e passa em pouco tempo.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Posso comer com a placa?</summary>
+              <div class="faq-a"><p>Não. A placa sai para comer e beber qualquer coisa além de água, e volta depois de escovar os dentes.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Quanto tempo dura o tratamento?</summary>
+              <div class="faq-a"><p>Casos simples podem levar alguns meses; casos maiores, mais de um ano. O prazo estimado aparece na simulação.</p></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!--@include agendar-->
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

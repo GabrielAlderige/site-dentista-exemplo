@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Implante dentário em {{cidade}}: etapas, prazos e cuidados | {{nome}}</title>
+    <meta name="description" content="Como funciona o implante dentário na {{nome}}, em {{cidade}} – {{uf}}: avaliação com radiografia, cirurgia com anestesia local, tempo de cicatrização e coroa sob medida." />
+  </head>
+  <body data-pagina="implante" data-tratamento="Implante dentário">
+    <!--@include header-->
+    <div class="palco" aria-hidden="true">
+      <canvas class="palco__canvas" data-dente></canvas>
+    </div>
+
+    <main id="conteudo">
+      <section class="abertura interna__abertura" data-estado="implante" aria-labelledby="titulo">
+        <div class="abertura__in">
+          <nav class="migalha" aria-label="Você está em"><ol><li><a href="{{base}}">Início</a></li><li aria-current="page">Implante dentário</li></ol></nav>
+          <h1 id="titulo" class="abertura__titulo">Implante dentário em {{cidade}}</h1>
+          <p class="abertura__lead">Um parafuso de titânio substitui a raiz do dente perdido e sustenta uma coroa feita sob medida. Aqui está o caminho completo, da avaliação à coroa.</p>
+          <div class="abertura__acoes">
+            <a class="botao botao--escuro" href="#agendar">Agendar avaliação para implante</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="texto" data-estado="fora">
+        <div class="texto__in">
+          <h2>Para quem é indicado</h2>
+          <p>Para quem perdeu um ou mais dentes, ou tem um dente que precisa ser extraído. A avaliação verifica a quantidade de osso e a saúde da gengiva; quando falta osso, existem enxertos que preparam a região antes.</p>
+
+          <h2>As etapas</h2>
+          <ol class="etapas">
+            <li><strong>Avaliação e planejamento.</strong> Exame clínico e radiografia. Em alguns casos é pedida uma tomografia para medir o osso com precisão.</li>
+            <li><strong>Cirurgia.</strong> Com anestesia local, o implante é colocado no osso. Em muitos casos você volta para casa no mesmo dia, com as orientações por escrito.</li>
+            <li><strong>Cicatrização.</strong> O osso se une ao titânio, num processo chamado osseointegração. Leva de três a seis meses, conforme o caso.</li>
+            <li><strong>Coroa.</strong> Com o implante firme, o pilar é instalado e a coroa é feita na cor dos seus dentes.</li>
+          </ol>
+
+          <h2>Cuidados depois</h2>
+          <p>O implante não tem cárie, mas a gengiva ao redor precisa da mesma atenção que os dentes naturais: escovação, fio dental ou escova interdental, e consultas de revisão.</p>
+          <p class="nota">Prazos e indicação variam de pessoa para pessoa. Só a avaliação clínica define o tratamento certo para o seu caso.</p>
+        </div>
+      </section>
+
+      <section class="duvidas" data-estado="fora" aria-labelledby="duvidas-titulo">
+        <div class="duvidas__in">
+          <h2 id="duvidas-titulo">Dúvidas sobre implante</h2>
+          <div class="faq">
+            <details class="faq-item">
+              <summary>Quanto tempo leva o tratamento completo?</summary>
+              <div class="faq-a"><p>Na maioria dos casos, de quatro a oito meses entre a cirurgia e a coroa definitiva. Quando é preciso enxerto ósseo, o prazo aumenta.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Fico sem dente durante a cicatrização?</summary>
+              <div class="faq-a"><p>Em geral não. Em dentes da frente costuma ser instalada uma prótese provisória enquanto o osso cicatriza.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Quem tem diabetes pode fazer implante?</summary>
+              <div class="faq-a"><p>Com a diabetes controlada, normalmente sim. O dentista pode pedir exames recentes e conversar com seu médico antes da cirurgia.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Quanto tempo dura um implante?</summary>
+              <div class="faq-a"><p>Com higiene em dia e revisões periódicas, o implante pode durar muitos anos. Fumar e doença na gengiva são os maiores riscos.</p></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!--@include agendar-->
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

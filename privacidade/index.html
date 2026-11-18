@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Política de privacidade | {{nome}}</title>
+    <meta name="description" content="Como a {{nome}} usa e protege os dados enviados pelo site, de acordo com a LGPD." />
+  </head>
+  <body data-pagina="privacidade">
+    <!--@include header-->
+    <main id="conteudo" class="simples">
+      <nav class="migalha" aria-label="Você está em"><ol><li><a href="{{base}}">Início</a></li><li aria-current="page">Privacidade</li></ol></nav>
+      <h1>Política de privacidade</h1>
+      <p>Esta página explica quais dados o site recebe, para que eles servem e como pedir a exclusão, conforme a Lei Geral de Proteção de Dados (Lei 13.709/2018).</p>
+
+      <h2>Quais dados recebemos</h2>
+      <p>Pelo formulário de agendamento: nome, número de WhatsApp, tratamento de interesse, período preferido e a mensagem, se você escrever uma. Também registramos por qual canal você chegou ao site (por exemplo, busca no Google ou Instagram).</p>
+
+      <h2>Para que usamos</h2>
+      <p>Só para responder o seu pedido e marcar a consulta. Os dados não são vendidos nem repassados para terceiros com fins de publicidade.</p>
+
+      <h2>Dados de saúde</h2>
+      <p>Não peça nem envie exames, fotos ou detalhes de saúde pelo formulário. Essas informações são tratadas na consulta, no prontuário, com o sigilo exigido pelo Código de Ética Odontológica.</p>
+
+      <h2>Por quanto tempo guardamos</h2>
+      <p>Enquanto for necessário para o atendimento. Se você não se tornar paciente, os dados do pedido são apagados em até 12 meses.</p>
+
+      <h2>Seus direitos</h2>
+      <p>Você pode pedir acesso, correção ou exclusão dos seus dados a qualquer momento pelo telefone <a href="{{telLink}}">{{telefone}}</a> ou na recepção da clínica.</p>
+
+      <h2>Responsável</h2>
+      <p>{{nome}}, {{endereco}}, {{bairro}}, {{cidade}} – {{uf}}. Responsável técnico: {{responsavel}}, {{cro}}.</p>
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

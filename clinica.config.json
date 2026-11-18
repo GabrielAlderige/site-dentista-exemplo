@@ -1,0 +1,24 @@
+{
+  "nome": "Esmalte Odontologia",
+  "nomeCurto": "Esmalte",
+  "cidade": "Poços de Caldas",
+  "uf": "MG",
+  "bairro": "Centro",
+  "endereco": "Rua Exemplo, 100, sala 12",
+  "cep": "37700-000",
+  "telefone": "(35) 0000-0000",
+  "whatsapp": "",
+  "email": "",
+  "horarioTexto": "Segunda a sexta, das 8h às 19h. Sábado, das 8h às 12h.",
+  "horarios": [
+    { "dias": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "abre": "08:00", "fecha": "19:00" },
+    { "dias": ["Saturday"], "abre": "08:00", "fecha": "12:00" }
+  ],
+  "responsavel": "Dra. Nome Sobrenome",
+  "cro": "CRO-MG 00000",
+  "url": "https://gabrielalderige.github.io/site-dentista-exemplo",
+  "formEndpoint": "",
+  "demo": true,
+  "creditoNome": "Alderige Solutions",
+  "creditoUrl": "https://gabrielalderige.github.io/alderige-solutions/"
+}

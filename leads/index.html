@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Painel de pedidos (demonstração) | {{nome}}</title>
+    <meta name="description" content="Demonstração de como os pedidos de horário chegam para a clínica." />
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+  <body data-pagina="leads">
+    <!--@include header-->
+    <main id="conteudo" class="simples painel">
+      <h1>Pedidos de horário</h1>
+      <p>Assim chegam os pedidos feitos pelo site: nome, WhatsApp, tratamento, período preferido e de onde o paciente veio. Nesta demonstração eles ficam guardados só neste navegador. No site da clínica, cada pedido chega na hora no e-mail, no WhatsApp da recepção ou numa planilha.</p>
+      <div class="painel__barra">
+        <p class="painel__resumo" data-resumo>Nenhum pedido ainda</p>
+        <button class="botao botao--linha" type="button" data-exemplo>Criar pedido de teste</button>
+        <button class="botao botao--linha" type="button" data-csv>Baixar planilha (CSV)</button>
+        <button class="botao botao--linha" type="button" data-limpar>Apagar todos</button>
+      </div>
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead>
+            <tr><th scope="col">Recebido</th><th scope="col">Nome</th><th scope="col">WhatsApp</th><th scope="col">Tratamento</th><th scope="col">Período</th><th scope="col">Origem</th><th scope="col">Mensagem</th></tr>
+          </thead>
+          <tbody data-linhas></tbody>
+        </table>
+        <p class="vazio" data-vazio>Nenhum pedido ainda. <a href="{{base}}#agendar">Faça um pedido pelo formulário</a> para ver como ele chega aqui.</p>
+      </div>
+    </main>
+    <!--@include footer-->
+    <script type="module" src="/src/leads.ts"></script>
+  </body>
+</html>

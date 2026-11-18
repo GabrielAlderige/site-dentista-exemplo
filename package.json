@@ -1,0 +1,24 @@
+﻿{
+  "name": "site-dentista-exemplo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site demonstrativo de clínica odontológica",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port 5301",
+    "build": "tsc && vite build",
+    "preview": "vite preview --port 4301",
+    "check": "node scripts/check.mjs"
+  },
+  "dependencies": {
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "gsap": "^3.15.1",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@types/three": "^0.187.0",
+    "playwright": "^1.65.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8"
+  }
+}

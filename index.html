@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <!--@include head-->
+    <title>Dentista em {{cidade}}: implante, clareamento e alinhadores | {{nome}}</title>
+    <meta name="description" content="Clínica odontológica em {{cidade}} – {{uf}}. Implante dentário, clareamento, alinhadores invisíveis e limpeza. Avaliação com hora marcada e orçamento por escrito." />
+  </head>
+  <body data-pagina="home">
+    <!--@include header-->
+
+    <div class="palco" aria-hidden="true">
+      <canvas class="palco__canvas" data-dente></canvas>
+      <svg class="palco__reserva" viewBox="0 0 32 32"><path d="M9 4c-3 0-5 2.5-5 6 0 3 1 5 2 7.5.8 2 1 4 1.5 7 .4 2.5 1.3 4.5 2.8 4.5 1.6 0 2.1-2 2.6-4.5.4-2 .9-3.5 3.1-3.5s2.7 1.5 3.1 3.5c.5 2.5 1 4.5 2.6 4.5 1.5 0 2.4-2 2.8-4.5.5-3 .7-5 1.5-7C27 15 28 13 28 10c0-3.5-2-6-5-6-2.5 0-4 1.3-7 1.3S11.5 4 9 4z"/></svg>
+    </div>
+
+    <main id="conteudo">
+      <section class="abertura" data-estado="inicio" aria-labelledby="titulo">
+        <div class="abertura__in">
+          <p class="abertura__local">Clínica odontológica em {{cidade}}, {{uf}}</p>
+          <h1 id="titulo" class="abertura__titulo">Implante, alinhador e clareamento, explicados antes de começar.</h1>
+          <p class="abertura__lead">Na primeira consulta você sai com o diagnóstico, as opções de tratamento e o orçamento por escrito. Decide em casa, sem pressa.</p>
+          <div class="abertura__acoes">
+            <a class="botao botao--escuro" href="#agendar">Agendar avaliação</a>
+            <a class="botao botao--linha" href="{{waLink}}" target="_blank" rel="noopener" data-whats>Conversar no WhatsApp</a>
+          </div>
+          <ul class="abertura__fatos">
+            <li>Atendimento com hora marcada</li>
+            <li>Radiografia digital no consultório</li>
+            <li>Sábado de manhã</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="tratamentos" id="tratamentos" aria-labelledby="trat-titulo">
+        <header class="tratamentos__cabeca">
+          <h2 id="trat-titulo">O que tratamos</h2>
+          <p>Os três tratamentos mais procurados, mostrados no mesmo dente. Cada um tem uma página com prazos, cuidados e perguntas frequentes.</p>
+        </header>
+
+        <article class="capitulo" data-estado="implante" aria-labelledby="cap-implante">
+          <div class="capitulo__texto">
+            <h3 id="cap-implante">Implante dentário</h3>
+            <p>Quando o dente é perdido, um parafuso de titânio ocupa o lugar da raiz. O osso se une a ele em alguns meses, e sobre esse apoio vai uma coroa feita sob medida.</p>
+            <ol class="partes">
+              <li><span class="partes__cor partes__cor--coroa"></span><strong>Coroa</strong> em porcelana ou zircônia, na cor dos seus dentes</li>
+              <li><span class="partes__cor partes__cor--pilar"></span><strong>Pilar</strong> que liga a coroa ao implante</li>
+              <li><span class="partes__cor partes__cor--parafuso"></span><strong>Implante</strong> de titânio, que faz o papel da raiz</li>
+            </ol>
+            <a class="link" href="{{base}}implantes-dentarios/">Como funciona o implante, etapa por etapa</a>
+          </div>
+        </article>
+
+        <article class="capitulo" data-estado="clareamento" aria-labelledby="cap-clareamento">
+          <div class="capitulo__texto">
+            <h3 id="cap-clareamento">Clareamento dental</h3>
+            <p>O dentista mede a cor atual com a escala usada no consultório e combina com você até onde clarear. O resultado depende do dente de cada pessoa e é acompanhado em consultas de retorno.</p>
+            <div class="escala" data-escala>
+              <label for="escala-cor">Arraste pela escala de cor</label>
+              <input id="escala-cor" type="range" min="0" max="3" step="1" value="0" aria-valuetext="A3" />
+              <ol class="escala__marcas" aria-hidden="true">
+                <li style="--c:#E3CFA6">A3</li><li style="--c:#EAD9B8">A2</li><li style="--c:#F0E5CD">A1</li><li style="--c:#F6F1E4">B1</li>
+              </ol>
+            </div>
+            <a class="link" href="{{base}}clareamento-dental/">Clareamento de consultório ou caseiro</a>
+          </div>
+        </article>
+
+        <article class="capitulo" data-estado="alinhador" aria-labelledby="cap-alinhador">
+          <div class="capitulo__texto">
+            <h3 id="cap-alinhador">Alinhadores invisíveis</h3>
+            <p>Placas transparentes feitas a partir de um escaneamento da sua boca. Cada placa move os dentes um pouco; você troca a cada uma ou duas semanas e tira para comer e escovar.</p>
+            <p>Antes de começar, o escaneamento mostra uma simulação do caminho dos dentes, placa por placa.</p>
+            <a class="link" href="{{base}}alinhadores-invisiveis/">Quem pode usar alinhadores</a>
+          </div>
+        </article>
+
+        <article class="capitulo" data-estado="prevencao" aria-labelledby="cap-prevencao">
+          <div class="capitulo__texto">
+            <h3 id="cap-prevencao">Clínica geral e prevenção</h3>
+            <p>Limpeza, restaurações, tratamento de canal e acompanhamento de gengiva. A maior parte dos problemas começa pequena e silenciosa; a consulta de rotina é onde eles são encontrados.</p>
+            <ul class="lista-simples">
+              <li>Limpeza e aplicação de flúor</li>
+              <li>Restaurações em resina na cor do dente</li>
+              <li>Tratamento de canal</li>
+              <li>Atendimento de dor e urgência no mesmo dia, conforme a agenda</li>
+            </ul>
+          </div>
+        </article>
+      </section>
+
+      <section class="consulta" id="primeira-consulta" data-estado="fora" aria-labelledby="consulta-titulo">
+        <div class="consulta__in">
+          <h2 id="consulta-titulo">Como é a primeira consulta</h2>
+          <p class="consulta__lead">Cerca de uma hora, do começo ao orçamento em mãos.</p>
+          <div class="arco">
+            <svg class="arco__linha" viewBox="0 0 600 340" aria-hidden="true" preserveAspectRatio="xMidYMid meet">
+              <path class="arco__base" d="M40 320 C40 120 140 30 300 30 C460 30 560 120 560 320" />
+              <path class="arco__traco" d="M40 320 C40 120 140 30 300 30 C460 30 560 120 560 320" pathLength="1" />
+            </svg>
+            <ol class="arco__passos">
+              <li><h3>Conversa</h3><p>O que incomoda, o que você espera e seu histórico de saúde.</p></li>
+              <li><h3>Exame e radiografia</h3><p>Exame clínico completo e radiografia digital, feita ali mesmo.</p></li>
+              <li><h3>Plano por escrito</h3><p>As opções possíveis, com prazos e valores de cada uma.</p></li>
+              <li><h3>Agenda</h3><p>Se decidir começar, as sessões são marcadas na saída.</p></li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="estrutura" data-estado="fora" aria-labelledby="estrutura-titulo">
+        <div class="estrutura__in">
+          <h2 id="estrutura-titulo">No consultório</h2>
+          <dl class="ficha">
+            <div><dt>Escaneamento intraoral</dt><dd>Molde digital da boca, sem a massa de moldagem.</dd></div>
+            <div><dt>Radiografia digital</dt><dd>Imagem na tela em segundos, com menos radiação que o filme.</dd></div>
+            <div><dt>Esterilização em autoclave</dt><dd>Instrumentos embalados e abertos na sua frente, com registro de cada ciclo.</dd></div>
+            <div><dt>Acessibilidade</dt><dd>Consultório no térreo, com acesso para cadeira de rodas.</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="duvidas" id="duvidas" data-estado="fora" aria-labelledby="duvidas-titulo">
+        <div class="duvidas__in">
+          <h2 id="duvidas-titulo">Dúvidas frequentes</h2>
+          <div class="faq">
+            <details class="faq-item">
+              <summary>A avaliação tem custo?</summary>
+              <div class="faq-a"><p>A recepção informa o valor da avaliação ao marcar o horário. Ele inclui o exame clínico, a radiografia digital e o plano de tratamento por escrito.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Vocês atendem convênio?</summary>
+              <div class="faq-a"><p>A clínica atende particular e alguns convênios. Ao pedir o horário, diga o nome do seu plano que a recepção confirma a cobertura.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Dá para parcelar o tratamento?</summary>
+              <div class="faq-a"><p>Sim. As formas de pagamento e o parcelamento aparecem no orçamento por escrito entregue na primeira consulta.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Estou com dor. Consigo atendimento hoje?</summary>
+              <div class="faq-a"><p>A agenda reserva horários para urgência. Escolha "Dor ou urgência" no formulário ou chame no WhatsApp para a recepção ver o primeiro horário livre.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Implante dói?</summary>
+              <div class="faq-a"><p>A cirurgia é feita com anestesia local. Nos dias seguintes é comum um desconforto controlado com a medicação indicada pelo dentista.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Qual a idade mínima para alinhadores?</summary>
+              <div class="faq-a"><p>Existem alinhadores para adolescentes e adultos. A indicação depende do caso, avaliado no exame e no escaneamento.</p></div>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!--@include agendar-->
+    </main>
+
+    <!--@include footer-->
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

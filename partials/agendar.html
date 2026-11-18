@@ -1,0 +1,59 @@
+<section class="agendar" id="agendar" aria-labelledby="agendar-titulo">
+      <div class="agendar__in">
+        <div class="agendar__texto">
+          <h2 id="agendar-titulo">Peça um horário para a avaliação</h2>
+          <p>Deixe seu nome e WhatsApp. A recepção responde no horário de atendimento com as opções de dia e hora.</p>
+          <dl class="contato">
+            <div><dt>Endereço</dt><dd>{{endereco}}, {{bairro}}<br />{{cidade}} – {{uf}}<br /><a href="{{mapsLink}}" target="_blank" rel="noopener">Abrir no mapa</a></dd></div>
+            <div><dt>Telefone</dt><dd><a href="{{telLink}}">{{telefone}}</a></dd></div>
+            <div><dt>Horário</dt><dd>{{horarioTexto}}</dd></div>
+          </dl>
+          <a class="botao botao--whats" href="{{waLink}}" target="_blank" rel="noopener" data-whats>Prefiro conversar no WhatsApp</a>
+        </div>
+
+        <form class="form" id="form-agendar" novalidate>
+          <div class="campo">
+            <label for="f-nome">Seu nome</label>
+            <input id="f-nome" name="nome" type="text" autocomplete="name" required maxlength="80" />
+            <p class="campo__erro" id="f-nome-erro" hidden>Escreva seu nome para a recepção saber com quem fala.</p>
+          </div>
+          <div class="campo">
+            <label for="f-whats">WhatsApp com DDD</label>
+            <input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(35) 99999-9999" required />
+            <p class="campo__erro" id="f-whats-erro" hidden>Confira o número: são 10 ou 11 dígitos com o DDD.</p>
+          </div>
+          <div class="campo">
+            <label for="f-trat">O que você procura</label>
+            <select id="f-trat" name="tratamento">
+              <option>Avaliação geral</option>
+              <option>Implante dentário</option>
+              <option>Clareamento dental</option>
+              <option>Alinhadores invisíveis</option>
+              <option>Limpeza e prevenção</option>
+              <option>Dor ou urgência</option>
+            </select>
+          </div>
+          <fieldset class="campo campo--periodo">
+            <legend>Melhor período</legend>
+            <label><input type="radio" name="periodo" value="Manhã" checked /> Manhã</label>
+            <label><input type="radio" name="periodo" value="Tarde" /> Tarde</label>
+            <label><input type="radio" name="periodo" value="Sábado" /> Sábado</label>
+          </fieldset>
+          <div class="campo">
+            <label for="f-msg">Quer contar algo antes? <span class="opcional">(opcional)</span></label>
+            <textarea id="f-msg" name="mensagem" rows="3" maxlength="600"></textarea>
+          </div>
+          <div class="campo campo--hp" aria-hidden="true">
+            <label for="f-site">Não preencha</label>
+            <input id="f-site" name="site" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <label class="consentimento">
+            <input type="checkbox" name="consentimento" required />
+            <span>Autorizo a clínica a usar meu nome e WhatsApp só para responder este pedido. <a href="{{base}}privacidade/">Como tratamos seus dados</a>.</span>
+          </label>
+          <p class="campo__erro" id="f-consent-erro" hidden>Marque a autorização para podermos responder.</p>
+          <button class="botao botao--escuro botao--largo" type="submit">Pedir horário</button>
+          <p class="form__status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
