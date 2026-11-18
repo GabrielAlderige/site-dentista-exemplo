@@ -33,10 +33,22 @@ for (const [nome, vp] of [['desk', { width: 1440, height: 900 }], ['movel', { wi
   await page.screenshot({ path: join(out, `${nome}-01-abertura.png`) })
   const pronto = await page.evaluate(() => document.querySelector('.palco')?.classList.contains('is-pronto'))
   if (!pronto) problemas.push(`[${nome}] 3D não carregou`)
-  const alvos = [['[data-estado=implante] .capitulo__texto', '02-implante'], ['[data-estado=clareamento] .capitulo__texto', '03-clareamento'], ['[data-estado=alinhador] .capitulo__texto', '04-alinhador'], ['[data-estado=prevencao] .capitulo__texto', '05-prevencao'], ['.arco', '06-consulta'], ['.estrutura', '07-estrutura'], ['#duvidas', '08-duvidas'], ['#agendar', '09-agendar'], ['.rodape', '10-rodape']]
+  // trilha presa: rola até o meio de cada passo
+  for (const [i, arq] of ['02-implante', '03-clareamento', '04-alinhador', '05-prevencao'].entries()) {
+    await page.evaluate((k) => {
+      const t = document.querySelector('[data-trilha]')
+      const total = t.offsetHeight - window.innerHeight
+      window.scrollTo(0, t.getBoundingClientRect().top + window.scrollY + total * ((k + 0.5) / 4))
+    }, i)
+    await page.waitForTimeout(arq === '03-clareamento' ? 5000 : 2200)
+    const ativo = await page.evaluate(() => document.querySelector('.painel-trat.is-ativo')?.dataset.painel)
+    const esperado = ['implante', 'clareamento', 'alinhador', 'prevencao'][i]
+    if (ativo !== esperado) problemas.push(`[${nome}] trilha passo ${i}: painel ${ativo}, esperado ${esperado}`)
+    await page.screenshot({ path: join(out, `${nome}-${arq}.png`) })
+  }
+  const alvos = [['.arco', '06-consulta'], ['.bento', '07-estrutura'], ['#duvidas', '08-duvidas'], ['#agendar', '09-agendar'], ['.rodape', '10-rodape']]
   for (const [s, arq] of alvos) {
     await ate(page, s)
-    if (arq === '03-clareamento') await page.waitForTimeout(3500)
     await page.screenshot({ path: join(out, `${nome}-${arq}.png`) })
   }
   const larguraExtra = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth)
